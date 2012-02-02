@@ -1,4 +1,10 @@
 TwitRL::Application.routes.draw do
+  get "list/index"
+
+  get "list/select"
+
+  get "list/create"
+
   get "sample/index"
 
   get "sample/create"
@@ -6,7 +12,7 @@ TwitRL::Application.routes.draw do
   match "/auth/:provider/callback" => "sample#callback"
   match "/logout" => "sample#destroy", :as => :logout
 
-  root :to => "sample#index"
+  root :to => "list#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
