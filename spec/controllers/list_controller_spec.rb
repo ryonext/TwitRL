@@ -1,3 +1,4 @@
+#encoding: utf-8
 require 'spec_helper'
 
 describe ListController do
@@ -13,6 +14,11 @@ describe ListController do
     it "returns http success" do
       get 'select'
       response.should be_success
+    end
+
+    it "Twitterのフォローリストが取得できること" do
+      get 'select'
+      assigns[:followers].should_not be_empty
     end
   end
 
