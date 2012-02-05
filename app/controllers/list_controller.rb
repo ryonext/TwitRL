@@ -1,3 +1,4 @@
+#encoding: utf-8
 class ListController < ApplicationController
   def index
   end
@@ -7,7 +8,6 @@ class ListController < ApplicationController
     #OAuthする
     
     auth = request.env["omniauth.auth"]
-    p auth
     #p auth.credentials.secret
     #p auth.credentials.token
     Twitter.configure do |config|
@@ -16,8 +16,15 @@ class ListController < ApplicationController
       config.oauth_token = auth['credentials']['token']
       config.oauth_token_secret = auth['credentials']['secret']
     end
+    
+
     #フォローした人を取得する
-    @followers = Twitter.followers
+    p 1
+    p followers = Twitter.follower_ids
+    p collection = followers['collection']
+    p collection[0]
+    p Twitter.user(collection[0])
+    p 2
     #表示する
   end
 
