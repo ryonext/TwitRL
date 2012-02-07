@@ -19,16 +19,15 @@ class ListController < ApplicationController
     
 
     #フォローした人を取得する
-    p 1
-    p followers = Twitter.follower_ids
-    p collection = followers['collection']
-    p collection[0]
-    p Twitter.user(collection[0])
-    p 2
-    #表示する
+    followers = Twitter.friend_ids
+    collection = followers['collection']
+    
+    @userlist = Twitter.users(collection[0..19])
   end
 
   def create
+    p "( ﾟДﾟ)ｳﾋｮｰ"
+    p params[:list_check]
   end
 
 end

@@ -1,2 +1,25 @@
-<h1>List#select</h1>
-<p>Find me in app/views/list/select.html.erb</p>
+<h1>最近フォローした人々</h1>
+<%= form_tag :action=>'create' do %>
+<table border="2">
+  <tr>
+    <td>Twitter_id</td>
+    <td>おなまえ</td>
+    <td>場所</td>
+    <td>お顔</td>
+    <td>こんな人です</td>
+    <td>リストに入れる</td>
+  </tr>
+  <% @userlist.each do |user| %>
+  <tr>
+    <td><%=h user.screen_name %></td>
+    <td><%=h user.name %></td>
+    <td><%=h user.location %></td>
+    <td><%= image_tag(user.profile_image_url) %></td>
+    <td><%=h user.description %></td>
+    <td><%= check_box_tag "list_check[]", user.screen_name %>
+    <td></td>
+  </tr>
+  <% end %>
+</table>
+<%= submit_tag '登録' %>
+<% end %>
