@@ -3,7 +3,7 @@ TwitRL::Application.routes.draw do
 
   get "list/select"
 
-  get "list/create"
+  post "list/create"
 
   get "sample/index"
 
