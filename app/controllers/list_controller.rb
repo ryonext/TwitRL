@@ -4,17 +4,16 @@ class ListController < ApplicationController
   end
 
   def select
-    #さて。
     #OAuthする
     
     auth = request.env["omniauth.auth"]
-    #p auth.credentials.secret
-    #p auth.credentials.token
+    session[:token] = auth['credentials']['token']
+    session[:secret] = auth['credentials']['secret']
     Twitter.configure do |config|
-      config.consumer_key =  'cNa4bLkDOTkmHgCGMgybSw'
-      config.consumer_secret = 'bCQbpcANe5DjZoi8d04lZuEdvh8TqRD7voSt96ximS4'
-      config.oauth_token = auth['credentials']['token']
-      config.oauth_token_secret = auth['credentials']['secret']
+#      config.consumer_key =  'cNa4bLkDOTkmHgCGMgybSw'
+#      config.consumer_secret = 'bCQbpcANe5DjZoi8d04lZuEdvh8TqRD7voSt96ximS4'
+      config.oauth_token = session[:token]
+      config.oauth_token_secret = session[:secret]
     end
     
 
@@ -26,8 +25,17 @@ class ListController < ApplicationController
   end
 
   def create
-    p "( ﾟДﾟ)ｳﾋｮｰ"
-    p params[:list_check]
+    targetMembers = params[:list_check]
+    Twitter.configure do|config|
+      config.oauth_token = session[:token]
+      config.oauth_token_secret = session[:secret]
+    end
+    #同名リスト削除
+    # TODO
+    #リストに突っ込む
+    Twitter.list_create('TwitRL')
+    Twitter.list_add_members('TwitRL', targetMembers)
+    #完成
   end
 
 end
