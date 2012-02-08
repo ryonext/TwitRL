@@ -20,7 +20,6 @@ class ListController < ApplicationController
     #フォローした人を取得する
     followers = Twitter.friend_ids
     collection = followers['collection']
-    
     @userlist = Twitter.users(collection[0..19])
   end
 
@@ -30,11 +29,11 @@ class ListController < ApplicationController
       config.oauth_token = session[:token]
       config.oauth_token_secret = session[:secret]
     end
-    #同名リスト削除
-    # TODO
+    #リスト名
+    list_name = "TwitRL_#{Date.today}"
     #リストに突っ込む
-    Twitter.list_create('TwitRL')
-    Twitter.list_add_members('TwitRL', targetMembers)
+    newList = Twitter.list_create(list_name)
+    Twitter.list_add_members(newList['id'], targetMembers)
     #完成
   end
 
