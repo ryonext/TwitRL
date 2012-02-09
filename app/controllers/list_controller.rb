@@ -6,11 +6,9 @@ class ListController < ApplicationController
   def authorize
     #OAuthする
     auth = request.env["omniauth.auth"]
-    session[:token] = auth['credentials']['token']
-    session[:secret] = auth['credentials']['secret']
     Twitter.configure do |config|
-      config.oauth_token = session[:token]
-      config.oauth_token_secret = session[:secret]
+      config.oauth_token = auth['credentials']['token']
+      config.oauth_token_secret = auth['credentials']['secret']
     end
     redirect_to :action=>'select'
   end
@@ -21,6 +19,8 @@ class ListController < ApplicationController
     collection = followers['collection']
     @userlist = Twitter.users(collection[0..19])
     @user = Twitter.user
+    #ログに書く
+    logger.info("usedlog,#{DateTime.now}, #{@user.screen_name}, #{@user.lang}, #{@user.location}, #{@user.description}")
   end
 
   def create
@@ -31,13 +31,12 @@ class ListController < ApplicationController
       return
     end
     #リスト名
-    list_name = "TwitRL_#{Date.today}"
+    @list_name = "TwitRL_#{Date.today}"
     #リストに突っ込む
-    newList = Twitter.list_create(list_name)
+    newList = Twitter.list_create(@list_name)
     Twitter.list_add_members(newList['id'], targetMembers)
     #完成
     @list_url = "https://twitter.com/#!/#{Twitter.user.screen_name}/lists"
-    @list_name = newList.name
   end
 
 end
