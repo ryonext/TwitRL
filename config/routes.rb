@@ -9,7 +9,7 @@ TwitRL::Application.routes.draw do
 
   get "sample/create"
 
-  match "/auth/:provider/callback" => "list#select"
+  match "/auth/:provider/callback" => "list#authorize"
   match "/logout" => "sample#destroy", :as => :logout
 
   root :to => "list#index"
