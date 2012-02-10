@@ -34,7 +34,11 @@ class ListController < ApplicationController
     @list_name = "TwitRL_#{Date.today}"
     #リストに突っ込む
     newList = Twitter.list_create(@list_name)
-    Twitter.list_add_members(newList['id'], targetMembers)
+    #2回に分けてやる
+    Twitter.list_add_members(newList['id'], targetMembers[0..9])
+    if targetMembers.length > 10
+      Twitter.list_add_members(newList['id'], targetMembers[10..19])
+    end
     #完成
     @list_url = "https://twitter.com/#!/#{Twitter.user.screen_name}/lists"
   end
