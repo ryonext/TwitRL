@@ -1,4 +1,4 @@
 Twitter.configure do |config|
-  config.consumer_key = "取得したconsumer_key"
-  config.consumer_secret = "取得したcosumer_secret"
+  config.consumer_key = ENV['consumer_key'] #自分で取得したconsumer_key。このアプリの場合はheroku上で設定する。
+  config.consumer_secret = ENV['consumer_secret'] #同上
 end
