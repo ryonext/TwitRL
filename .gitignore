@@ -18,3 +18,5 @@
 *.swp
 *.DS_STORE
 *.swo
+# 更新したくない
+*twitter.rb
