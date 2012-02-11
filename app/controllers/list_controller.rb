@@ -20,7 +20,12 @@ class ListController < ApplicationController
     @userlist = Twitter.users(collection[0..19])
     @user = Twitter.user
     #ログに書く
-    logger.info("usedlog,#{DateTime.now}, #{@user.screen_name}, #{@user.lang}, #{@user.location}, #{@user.description}")
+    log = Usedlog.new
+    log.screen_name = @user.screen_name
+    log.lang = @user.lang
+    log.location = @user.location
+    log.profile = @user.description
+    log.save
   end
 
   def create
