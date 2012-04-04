@@ -35,8 +35,15 @@ gem 'jquery-rails'
 
 group :development, :test do
   gem "rspec-rails", ">= 2.3.0"
+  gem "pry-rails"
 end
 
 gem "omniauth"
 gem "omniauth-twitter"
 gem "twitter"
+
+group :development do
+  gem 'capistrano', :require => nil
+  gem 'capistrano_colors'
+  gem 'capistrano-ext', :require => nil
+end
