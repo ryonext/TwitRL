@@ -47,3 +47,5 @@ group :development do
   gem 'capistrano_colors'
   gem 'capistrano-ext', :require => nil
 end
+
+gem "twitter-bootstrap-rails"
