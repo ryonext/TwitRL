@@ -24,15 +24,15 @@
 
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
-          <div class="container">
+          <div class="container-fluid">
           <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
           <a class="brand" href="#">TwitRL</a>
-          <div class="container nav-collapse">
-            <ul class="nav pull-right">
+          <div class="container-fluid nav-collapse">
+            <ul class="nav pull-right ">
               <% if @user != nil %>
                 <li><%= image_tag(@user.profile_image_url, :size => '35x35') %></li>
                 <li><%= link_to(@user.screen_name, 'http://www.twitter.com/' + @user.screen_name, { :target => '_blank'}) %></li>
@@ -43,16 +43,25 @@
       </div>
     </div>
 
-    <div class="container">
-      <div class="content">
-        <div class="row">
-           <div class="span9">
-              <%= yield %>
-            </div>
-        </div><!--/row-->
-      </div><!--/content-->
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span2">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">手順</li>
+              <li class=<%= is_active(0) %>><a href="#">1.最初の画面</a></li>
+              <li class=<%= is_active(1) %>><a href="#">2.リスト画面</a></li>
+              <li class=<%= is_active(2) %>><a href="#">3.完成</a></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9">
+          <%= yield %>
+        </div>
+      </div><!--/row-->
 
       <footer>
+        <p>&copy; Company 2012</p>
       </footer>
 
     </div> <!-- /container -->
