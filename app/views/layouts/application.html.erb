@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="fb:admins" content="100001850540873" />
     <title>TwitRL</title>
     <%= csrf_meta_tags %>
 
@@ -30,7 +31,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">TwitRL</a>
+          <a class="brand" href=<%= root_path %>>TwitRL</a>
           <div class="container-fluid nav-collapse">
             <ul class="nav pull-right ">
               <% if @user != nil %>
@@ -61,7 +62,11 @@
       </div><!--/row-->
 
       <footer>
-        <p>&copy; Company 2012</p>
+      <p>&copy;
+      <a href="https://twitter.com/#!/ryonext" target="_blank">@ryonext</a> / 
+      <a href="http://ryonext.blog85.fc2.com/" target="_blank">月曜日までに考えておきます</a>
+      2012 powerd by <a href="http://heroku.com" target="_blank">heroku</a>
+      </p>
       </footer>
 
     </div> <!-- /container -->
