@@ -42,6 +42,10 @@ gem "omniauth"
 gem "omniauth-twitter"
 gem "twitter"
 
+group :test do
+  gem "webmock"
+end
+
 group :development do
   gem 'capistrano', :require => nil
   gem 'capistrano_colors'
@@ -49,3 +53,4 @@ group :development do
 end
 
 gem "twitter-bootstrap-rails"
+

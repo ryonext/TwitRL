@@ -32,12 +32,11 @@
           </a>
           <a class="brand" href="#">TwitRL</a>
           <div class="container nav-collapse">
-            <ul class="nav">
-              <!--
-                <li><%= link_to "Link1", "/path1"  %></li>
-                <li><%= link_to "Link2", "/path2"  %></li>
-                <li><%= link_to "Link3", "/path3"  %></li
-                -->
+            <ul class="nav pull-right">
+              <% if @user != nil %>
+                <li><%= image_tag(@user.profile_image_url, :size => '35x35') %></li>
+                <li><%= link_to(@user.screen_name, 'http://www.twitter.com/' + @user.screen_name, { :target => '_blank'}) %></li>
+              <% end %>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

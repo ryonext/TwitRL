@@ -1,10 +1,4 @@
 <h1>最近フォローした人々</h1>
-
-<p>あなたのアカウント</p>
-<%= image_tag(@user.profile_image_url) %>
-<%= @user.name %>
-<%= @user.screen_name %>
-
 <% if flash[:alert] %>
   <div id="flash" style="color: red; border; red solid">
     <%= flash[:alert] %>
@@ -12,26 +6,35 @@
 <% end %>
 
 <%= form_tag :action=>'create' do %>
-<table class="table table-striped" >
-  <tr>
-    <td>リストに入れる</td>
-    <td>お顔</td>
-    <td>Twitter_id</td>
-    <td>おなまえ</td>
-    <td>場所</td>
-    <td>こんな人です</td>
-  </tr>
-  <% @userlist.each do |user| %>
-  <tr>
-    <td align="center"><%= check_box_tag "list_check[]", user.screen_name, { :checked => true} %>
-    <td><%= image_tag(user.profile_image_url) %></td>
-    <td><%= link_to(user.screen_name, 'http://www.twitter.com/' + user.screen_name, { :target => '_blank'}) %></td>
-    <td><%=h user.name %></td>
-    <td><%=h user.location %></td>
-    <td><%=h user.description %></td>
-  </tr>
-  <% end %>
-</table>
-<br />
-<%= submit_tag 'リストを作成する' ,{:class=>'btn btn-large btn-primary'}%>
+  <div class="row show-grid">
+    <div class="span8">
+      <table class="table table-striped" >
+        <tr>
+          <td class="span6">ユーザー</td>
+          <td class="span2">追加</td>
+        </tr>
+        <% @userlist.each do |user| %>
+          <tr>
+            <td>
+              <div>
+                <%= image_tag(user.profile_image_url) %>
+                <%= link_to(user.screen_name, 'http://www.twitter.com/' + user.screen_name, { :target => '_blank'}) %>
+                <%=h user.name %>
+                <%=h user.location %>
+              </div>
+              <div>
+                <%=h user.description %>
+              </div>
+            </td>
+            <td>
+              <%= check_box_tag "list_check[]", user.screen_name, { :checked => true} %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+    <div class="span1">
+      <%= submit_tag 'リスト作成' ,{:class=>'btn btn-large btn-primary'}%>
+    </div>
+  </div>
 <% end %>
