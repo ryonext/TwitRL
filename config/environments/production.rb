@@ -9,7 +9,7 @@ TwitRL::Application.configure do
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = false
+  config.serve_static_assets = true#false
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
@@ -57,4 +57,12 @@ TwitRL::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+  
+  config.assets.precompile += %w( application.css )
+  config.assets.precompile += %w( list.css.scss )
+  config.assets.precompile += %w( bootstrap_and_overrides.css.less )
+  config.assets.precompile += %w( application.js )
+  config.assets.precompile += %w( bootstrap.js.coffee )
+  config.assets.precompile += %w( list.js.coffee )
+  
 end
