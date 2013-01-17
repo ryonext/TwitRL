@@ -15,9 +15,10 @@ class ListController < ApplicationController
 
   def select
     #フォローした人を取得する
-    followers = Twitter.friend_ids
-    collection = followers['collection']
-    @userlist = Twitter.users(collection[0..19])
+#    followers = Twitter.friend_ids
+#    binding.pry
+#    collection = followers.ids
+    @userlist = Twitter.friends.users
     @user = Twitter.user
     #ログに書く
     log = Usedlog.new
