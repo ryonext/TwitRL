@@ -1,25 +1,21 @@
 #encoding: utf-8
 class ListController < ApplicationController
+  before_filter :authorize, :only => [:select]
   def index
   end
 
   def authorize
     #OAuthする
     auth = request.env["omniauth.auth"]
-    Twitter.configure do |config|
-      config.oauth_token = auth['credentials']['token']
-      config.oauth_token_secret = auth['credentials']['secret']
-    end
-    redirect_to :action=>'select'
+    session[:oauth_token] = auth['credentials']['token']
+    session[:oauth_token_secret] = auth['credentials']['secret']
   end
 
   def select
     #フォローした人を取得する
-#    followers = Twitter.friend_ids
-#    binding.pry
-#    collection = followers.ids
-    @userlist = Twitter.friends.users
-    @user = Twitter.user
+    client = create_client_with_session
+    @userlist = client.friends.users
+    @user = client.user
     #ログに書く
     log = Usedlog.new
     log.screen_name = @user.screen_name
@@ -39,14 +35,23 @@ class ListController < ApplicationController
     #リスト名
     @list_name = "TwitRL_#{Date.today}"
     #リストに突っ込む
-    newList = Twitter.list_create(@list_name)
+    client = create_client_with_session
+    newList = client.list_create(@list_name)
     #2回に分けてやる
-    Twitter.list_add_members(newList['id'], targetMembers[0..9])
+    client.list_add_members(newList['id'], targetMembers[0..9])
     if targetMembers.length > 10
-      Twitter.list_add_members(newList['id'], targetMembers[10..19])
+      client.list_add_members(newList['id'], targetMembers[10..19])
     end
     #完成
-    @list_url = "https://twitter.com/#!/#{Twitter.user.screen_name}/lists"
+    @list_url = "https://twitter.com/#!/#{client.user.screen_name}/lists"
   end
 
+  private
+
+  def create_client_with_session
+    @client = Twitter::Client.new(
+      :oauth_token => session[:oauth_token],
+      :oauth_token_secret => session[:oauth_token_secret]
+    )
+  end
 end
