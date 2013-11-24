@@ -1,4 +1,8 @@
 = CHANGELOG
+== 1.0.4
+=== BUGFIX
+* Upgrade Ruby on heroku.
+
 == 1.0.3
 === BUGFIX
 * Write CHANGELOG first
